@@ -29,6 +29,12 @@ jQuery(document).ready (event) ->
       setTimeout (->
         #wait for the end of the transition on the loading bar before revealing the new content
         if section.hasClass('cd-template') then $('body').addClass('cd-template') else $('body').removeClass('cd-template')
+        $nav.removeClass 'active'
+        $click.addClass 'active'
+        if $click.hasClass 'index'
+          $header.addClass 'hide'
+        else
+          $header.removeClass 'hide'
         $('body').removeClass 'page-is-changing'
         $('.cd-loading-bar').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
           isAnimating = false
@@ -60,12 +66,6 @@ jQuery(document).ready (event) ->
       #if the page is not already being animated - trigger animation
       if !isAnimating
         changePage newPage, true
-      $nav.removeClass 'active'
-      $click.addClass 'active'
-      if $click.hasClass 'index'
-        $header.addClass 'hide'
-      else
-        $header.removeClass 'hide'
     firstLoad = true
 
   #detect the 'popstate' event - e.g. user clicking the back button

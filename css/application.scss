@@ -24,13 +24,13 @@ html {
 
 body {
 	margin: 0;
+	background: $color-1;
 	padding: 0;
-	background-color: $color-3;
 	font: {
 		size: 1.6rem;
 		family: $primary-font; // variables inside partials > _variables.scss
 	}
-	color: $color-1;
+	color: $color-3;
 	@include font-smoothing;
 }
 
@@ -110,6 +110,7 @@ h3 {
 // ==========================================================================
 #header {
 	nav {
+		background: $color-3;
 		padding: 1em;
 		overflow: hidden;
 		.left {
@@ -356,5 +357,6 @@ main {
 
 //Helpers
 .hide {
-	display: none;
+	@include transform(translateY(-100%));
+	@include transition(all .3s);
 }
