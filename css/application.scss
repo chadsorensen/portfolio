@@ -1,16 +1,18 @@
-@import 'bourbon'; // http://bourbon.io/
+// ==========================================================================
+// ★ INCLUDES
+// ==========================================================================
 
-@import '../partials/variables'; // colors, fonts etc...
+@import '../bourbon/bourbon';
+@import 'variables'; // colors, fonts etc...
+@import 'mixins'; // custom mixins
+@import 'layout';
+@import 'social';
+@import 'work';
+// @import 'morph'; // responsive grid and media querie
 
-@import '../partials/mixins'; // custom mixins
-
-@import '../partials/layout'; // responsive grid and media queries
-
-/* -------------------------------- 
-
-Primary style
-
--------------------------------- */
+// ==========================================================================
+// ★ GENERAL
+// ==========================================================================
 
 *, *::after, *::before {
 	box-sizing: border-box;
@@ -21,12 +23,14 @@ html {
 }
 
 body {
+	margin: 0;
+	padding: 0;
+	background-color: $color-3;
 	font: {
 		size: 1.6rem;
 		family: $primary-font; // variables inside partials > _variables.scss
 	}
 	color: $color-1;
-	background-color: $color-3;
 	@include font-smoothing;
 }
 
@@ -35,10 +39,15 @@ a {
 	text-decoration: none;
 }
 
+a, button {
+	text-decoration: none;
+	outline: none;
+}
+
 h1 {
 	color: $color-3;
-	margin-bottom: 1em;
 	font-size: 2.2rem;
+	margin: 0;
 
 	@include MQ(M) {
 		font-size: 4.4rem;
@@ -46,27 +55,49 @@ h1 {
 	}
 }
 
-/* -------------------------------- 
+h2 {
+	color: $color-3;
+	font-size: 1.2rem;
 
-Patterns - reusable parts of our design
+	@include MQ(M) {
+		font-size: 2.4rem;
+		font-weight: 300;
+	}
+}
 
--------------------------------- */
+h3 {
+	color: $color-3;
+	margin: 0 0 2em;
+	font-size: 1rem;
+
+	@include MQ(M) {
+		font-size: 2rem;
+		font-weight: 300;
+	}
+}
+
+// ==========================================================================
+// ★ COMPONENTS
+// ==========================================================================
 
 .cd-btn {
 	display: inline-block;
 	padding: 1.4em 1.6em;
+	margin-right: 1em;
 	margin-bottom: 2em;
-	border-radius: 50em;
-	background-color: $color-2;
+	// border-radius: 50em;
+	background-color: transparent;
 	color: $color-3;
+	border: 1px solid;
 	font-weight: bold;
 	font-size: 1.3rem;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-	box-shadow: 0 1px 4px rgba(#000, .1);
 
 	.no-touch &:hover {
-		background-color: lighten($color-2, 5%);
+		background-color: $color-2;
+		border: 1px solid $color-2;
+		@include transition(all .3s ease);
 	}
 
 	.cd-about & {
@@ -74,11 +105,31 @@ Patterns - reusable parts of our design
 	}
 }
 
-/* -------------------------------- 
-
-Main Components 
-
--------------------------------- */
+// ==========================================================================
+// ★ NAVIGATION
+// ==========================================================================
+#header {
+	nav {
+		padding: 1em;
+		overflow: hidden;
+		.left {
+			float: left;
+		}
+		.right {
+			float: right;
+		}
+		a {
+			margin-right: .5em;
+			&.active {
+				@include transition(all .3s);
+				border-bottom: 1px solid $color-2;
+			}
+		}
+	}
+}
+// ==========================================================================
+// ★ MAIN
+// ==========================================================================
 
 body {
 
@@ -91,7 +142,7 @@ body {
 		left: 0;
 		background-color: $color-3;
 		z-index: 1;
-	
+
 		/* Force Hardware Acceleration */
 		@include backface-visibility(hidden);
 		@include transform(translateZ(0));
@@ -117,12 +168,12 @@ body {
 
 main {
 	height: 100vh;
-	padding: 10px;
+	padding: 0;
 	text-align: center;
-	
+
 	.cd-main-content {
 		position: relative;
-		height: calc(100vh - 20px);
+		height: 100vh;
 
 		> div {
 			height: 100%;
@@ -143,7 +194,7 @@ main {
 		&::before {
 			top: 0;
 		}
-		
+
 		&::after {
 			bottom: 0;
 		}
@@ -151,42 +202,29 @@ main {
 		&.cd-index {
 			/* .cd-main-content basic style - index page */
 			background-color: $color-1;
-			/* vertically center its content */ 
+			/* vertically center its content */
 			display: table;
 			width: 100%;
 
 			> div {
-				/* vertically center the content inside the .cd-index */ 
+				/* vertically center the content inside the .cd-index */
 				display: table-cell;
 				vertical-align: middle;
 			}
-			
-			&::after {
-				@include linear-gradient(to top, rgba($color-1, 1), rgba($color-1, 0), $fallback: rgba($color-1, 0));
-			}
 
-			&::before {
-				@include linear-gradient(to bottom, rgba($color-1, 1), rgba($color-1, 0), $fallback: rgba($color-1, 0));
-			}
 		}
 
+		&.cd-work,
 		&.cd-about {
 			/* .cd-main-content basic style - about page */
 			background-color: $color-2;
-			
+
 			> div {
 				padding-top: 50px;
 			}
 
-			&::after {
-				@include linear-gradient(to top, rgba($color-2, 1), rgba($color-2, 0), $fallback: rgba($color-2, 0));
-			}
-
-			&::before {
-				@include linear-gradient(to bottom, rgba($color-2, 1), rgba($color-2, 0), $fallback: rgba($color-2, 0));
-			}
 		}
-	} 
+	}
 
 	p {
 		width: 90%;
@@ -194,15 +232,14 @@ main {
 		margin: 3em auto;
 		font-size: 1.4rem;
 		line-height: 1.6;
-		color: tint($color-2, 20%);
+		color: $color-3;
 		text-align: left;
 	}
 
 	@include MQ(M) {
-		padding: 20px;
 
 		.cd-main-content {
-			height: calc(100vh - 40px);
+			height: 100vh;
 		}
 
 		&.cd-index > div {
@@ -305,4 +342,19 @@ main {
 	@include MQ(M) {
 		width: calc(100% - 40px);
 	}
+}
+
+.cd-template .cd-main-content {
+	background: $color-2;
+	.cd-btn {
+		background: $color-1;
+	}
+	p {
+		color: $color-3;
+	}
+}
+
+//Helpers
+.hide {
+	display: none;
 }
