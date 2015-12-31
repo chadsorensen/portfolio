@@ -1,39 +1,43 @@
 jQuery(document).ready (event) ->
   isAnimating = false
   newLocation = ''
-
-  changePage = (url, bool) ->
+  $nav = $('.nav-item')
+  $header = $('#header nav')
+  changePage = (url, bool, $click) =>
     isAnimating = true
     # trigger page animation
     $('body').addClass 'page-is-changing'
     $('.cd-loading-bar').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
-      loadNewContent url, bool
+      loadNewContent url, bool, $click
       newLocation = url
       $('.cd-loading-bar').off 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'
 
     #if browser doesn't support CSS transitions
     if !transitionsSupported()
-      loadNewContent url, bool
+      loadNewContent url, bool, $click
       newLocation = url
 
-  loadNewContent = (url, bool) ->
+  loadNewContent = (url, bool, $click) =>
     url = if '' == url then 'index.html' else url
     newSection = 'cd-' + url.replace('.html', '')
-
     section = $('<div class="cd-main-content ' + newSection + '"></div>')
-    section.load url + ' .cd-main-content > *', (event) ->
+    section.load url + ' .cd-main-content > *', (event) =>
       # load new content and replace <main> content with the new one
       $('main').html section
       #if browser doesn't support CSS transitions - dont wait for the end of transitions
       delay = if transitionsSupported() then 1200 else 0
-      setTimeout (->
+      setTimeout (=>
         #wait for the end of the transition on the loading bar before revealing the new content
         if section.hasClass('cd-template') then $('body').addClass('cd-template') else $('body').removeClass('cd-template')
         $nav.removeClass 'active'
-        $click.addClass 'active'
+        $active = $(".nav-item[href='#{url}']")
+        console.log 'active', $active
+        $active.addClass 'active'
         if $click.hasClass 'index'
+          console.log 'it does'
           $header.addClass 'hide'
         else
+          console.log 'it doesnt'
           $header.removeClass 'hide'
         $('body').removeClass 'page-is-changing'
         $('.cd-loading-bar').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
@@ -58,14 +62,13 @@ jQuery(document).ready (event) ->
     event.preventDefault()
     #detect which page has been selected
     $click = $(event.currentTarget)
-    $nav = $('.nav-item')
-    $header = $('#header nav')
+
     unless $click.hasClass 'active'
       newPage = $(this).attr('href')
 
       #if the page is not already being animated - trigger animation
       if !isAnimating
-        changePage newPage, true
+        changePage newPage, true, $click
     firstLoad = true
 
   #detect the 'popstate' event - e.g. user clicking the back button
@@ -80,7 +83,7 @@ jQuery(document).ready (event) ->
       newPageArray = location.pathname.split('/')
       newPage = newPageArray[newPageArray.length - 1]
       if !isAnimating and newLocation != newPage
-        changePage newPage, false
+        changePage newPage, false, $('.index')
     firstLoad = true
 
-  new UIMorphingButton( document.querySelector( '.morph-button' ) )
+  new UIMorphingButton( document.querySelector('.morph-button'))

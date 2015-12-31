@@ -58,7 +58,7 @@ h1 {
 h2 {
 	color: $color-3;
 	font-size: 1.2rem;
-
+	margin: 0 0 2em;
 	@include MQ(M) {
 		font-size: 2.4rem;
 		font-weight: 300;
@@ -95,8 +95,9 @@ h3 {
 	text-transform: uppercase;
 
 	.no-touch &:hover {
-		background-color: $color-2;
-		border: 1px solid $color-2;
+		background-color: $color-3;
+		border: 1px solid $color-3;
+		color: $color-1;
 		@include transition(all .3s ease);
 	}
 
@@ -121,9 +122,21 @@ h3 {
 		}
 		a {
 			margin-right: .5em;
+			color: $color-2;
 			&.active {
 				@include transition(all .3s);
-				border-bottom: 1px solid $color-2;
+				position: relative;
+				&:before {
+					content: '';
+					display: block;
+					position: absolute;
+					left: 0;
+					right: 0;
+					bottom: -16px;
+					height: 4px;
+					width: 100%;
+					background: #005273;
+				}
 			}
 		}
 	}
