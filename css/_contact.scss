@@ -1,0 +1,22 @@
+// ==========================================================================
+// ★ CONTACT
+// ==========================================================================
+main .cd-main-content.cd-contact {
+  overflow-y: auto;
+  h2 {
+    font-weight: 500;
+  }
+  .social {
+    svg {
+      display: inline-block;
+      @include size(50px);
+      path {
+        fill: #fff;
+      }
+    }
+    span {
+      display: inline-block;
+      font-size: 2rem;
+    }
+  }
+}
