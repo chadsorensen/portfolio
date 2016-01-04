@@ -1,6 +1,11 @@
 jQuery(document).ready (event) ->
   isAnimating = false
   newLocation = ''
+  $toggleTrigger = $('.toggle-trigger')
+  $toggleBlock = $('.cd-toggle-block')
+  $toggleTrigger.on 'click', ->
+    $toggleTrigger.toggleClass 'active'
+    $toggleBlock.toggleClass 'active'
   $nav = $('.nav-item')
   $header = $('#header nav')
   changePage = (url, bool, $click) =>

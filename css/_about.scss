@@ -11,4 +11,131 @@ main .cd-main-content.cd-about {
     padding: 20px;
     padding-left: 0;
   }
+  h1 {
+    // text-align: center;
+  }
+  .toggle-trigger {
+    position: relative;
+    color: $color-2;
+    cursor: pointer;
+    opacity: 1;
+    @include transition(all .3s);
+    &:after,
+    &:before {
+      content: '';
+      display: block;
+      width: 50%;
+      height: 2px;
+      position: absolute;
+      top: 55%;
+      background: transparent;
+      overflow: hidden;
+      @include transition(all .3s);
+    }
+    &:before {
+      left: -10%;
+      border-right: none;
+    }
+    &:after {
+      right: 10%;
+      border-left: none;
+    }
+    &.active {
+      color: $color-2;
+      opacity: .5;
+      &:after,
+      &:before {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 2px;
+        position: absolute;
+        top: 55%;
+        background: transparent;
+        overflow: hidden;
+      }
+      &:before {
+        left: -10%;
+        border-right: 50px solid $color-2;
+      }
+      &:after {
+        right: 10%;
+        border-left: 50px solid $color-2;
+      }
+    }
+  }
+  .cd-btn {
+    background: $color-1;
+    border: 1px solid $color-1;
+    font-size: 4.4rem;
+    padding: 0;
+    font-weight: 300;
+    margin-right: 0;
+    display: inline-flex;
+    text-align: center;
+    @inlcude box-sizing(border-box);
+    span {
+      /* padding-right: 1em; */
+      position: relative;
+      padding: 0em .6em;
+      background: transparent;
+      color: $color-3;
+      width: 50%;
+      display: block;
+      box-sizing: border-box;
+      float: left;
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      &.active {
+        &:after {
+          background: $color-1;
+        }
+      }
+    }
+
+  }
+  .cd-toggle-block {
+    display: none;
+    overflow: hidden;
+    &.active {
+      display: block;
+    }
+  }
+  .social {
+    ul {
+      @include display(flex);
+    }
+    li:before {
+      content: '';
+      display: none;
+    }
+    a {
+      @include display(flex);
+      @include align-items(center);
+      text-decoration: none;
+      @include transition(opacity .3s);
+      &:hover {
+        opacity: .7;
+      }
+    }
+    svg {
+      display: inline-block;
+      @include size(25px);
+      path {
+        fill: $color-2;
+      }
+    }
+    span {
+      display: inline-block;
+      margin-right: 1em;
+      font-size: 1.5rem;
+    }
+  }
 }

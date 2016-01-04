@@ -6,10 +6,11 @@
 @import 'variables'; // colors, fonts etc...
 @import 'mixins'; // custom mixins
 @import 'layout';
-@import 'social';
 @import 'work';
+@import 'about';
 @import 'contact';
 @import 'resume';
+@import 'social';
 // @import 'morph'; // responsive grid and media querie
 
 // ==========================================================================
@@ -442,7 +443,7 @@ main {
 		background: $color-1;
 	}
 	p {
-		color: $color-3;
+		color: $color-2;
 	}
 }
 

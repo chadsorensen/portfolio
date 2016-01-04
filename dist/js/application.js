@@ -1,7 +1,13 @@
 jQuery(document).ready(function(event) {
-  var $header, $nav, changePage, firstLoad, isAnimating, loadNewContent, newLocation, transitionsSupported;
+  var $header, $nav, $toggleBlock, $toggleTrigger, changePage, firstLoad, isAnimating, loadNewContent, newLocation, transitionsSupported;
   isAnimating = false;
   newLocation = '';
+  $toggleTrigger = $('.toggle-trigger');
+  $toggleBlock = $('.cd-toggle-block');
+  $toggleTrigger.on('click', function() {
+    $toggleTrigger.toggleClass('active');
+    return $toggleBlock.toggleClass('active');
+  });
   $nav = $('.nav-item');
   $header = $('#header nav');
   changePage = (function(_this) {
