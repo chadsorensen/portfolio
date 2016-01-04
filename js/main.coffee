@@ -18,7 +18,7 @@ jQuery(document).ready (event) ->
       newLocation = url
 
   loadNewContent = (url, bool, $click) =>
-    url = if '' == url then 'index.html' else url
+    url = if '' == url then 'index' else url
     newSection = 'cd-' + url.replace('.html', '')
     section = $('<div class="cd-main-content ' + newSection + '"></div>')
     section.load url + ' .cd-main-content > *', (event) =>
@@ -31,13 +31,10 @@ jQuery(document).ready (event) ->
         if section.hasClass('cd-template') then $('body').addClass('cd-template') else $('body').removeClass('cd-template')
         $nav.removeClass 'active'
         $active = $(".nav-item[href='#{url}']")
-        console.log 'active', $active
         $active.addClass 'active'
         if $click.hasClass 'index'
-          console.log 'it does'
           $header.addClass 'hide'
         else
-          console.log 'it doesnt'
           $header.removeClass 'hide'
         $('body').removeClass 'page-is-changing'
         $('.cd-loading-bar').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
@@ -85,5 +82,3 @@ jQuery(document).ready (event) ->
       if !isAnimating and newLocation != newPage
         changePage newPage, false, $('.index')
     firstLoad = true
-
-  new UIMorphingButton( document.querySelector('.morph-button'))

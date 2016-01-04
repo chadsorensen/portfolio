@@ -1,0 +1,80 @@
+// ==========================================================================
+// ★ RESUME
+// ==========================================================================
+main .cd-main-content.cd-resume {
+  overflow-y: auto;
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+  }
+  p {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+  >div {
+    header {
+      width: 90%;
+      margin: 0 auto;
+      padding: 85px 0 20px;
+      border-bottom: 1px solid #fff;
+      h1,
+      h1 {
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .row {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $color-3;
+    @include MQ(M) {
+      margin-bottom: 2em;
+      padding-bottom: 2em;
+      @include display(flex);
+    }
+  }
+  .col-1 {
+    padding: 20px;
+    @include flex(100%);
+    h2 {
+      font-style: italic;
+      font-weight: 500;
+    }
+    @include MQ(M) {
+      @include flex(15%);
+    }
+  }
+  .col-2 {
+    padding: 1em;
+    @include flex(100%);
+    .job {
+      position: relative;
+      margin-bottom: 2em;
+    }
+    h3 {
+      margin: 0 0 .5em;
+      @include MQ(M) {
+        font-size: 1.6rem;
+      }
+    }
+    h4 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      font-size: 1rem;
+      font-style: italic;
+      @include MQ(M) {
+        top: .35em;
+        font-size: 1.4rem;
+      }
+    }
+    @include MQ(M) {
+      @include flex(85%);
+    }
+  }
+}

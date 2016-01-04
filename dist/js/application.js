@@ -22,7 +22,7 @@ jQuery(document).ready(function(event) {
   loadNewContent = (function(_this) {
     return function(url, bool, $click) {
       var newSection, section;
-      url = '' === url ? 'index.html' : url;
+      url = '' === url ? 'index' : url;
       newSection = 'cd-' + url.replace('.html', '');
       section = $('<div class="cd-main-content ' + newSection + '"></div>');
       return section.load(url + ' .cd-main-content > *', function(event) {
@@ -38,13 +38,10 @@ jQuery(document).ready(function(event) {
           }
           $nav.removeClass('active');
           $active = $(".nav-item[href='" + url + "']");
-          console.log('active', $active);
           $active.addClass('active');
           if ($click.hasClass('index')) {
-            console.log('it does');
             $header.addClass('hide');
           } else {
-            console.log('it doesnt');
             $header.removeClass('hide');
           }
           $('body').removeClass('page-is-changing');
@@ -80,7 +77,7 @@ jQuery(document).ready(function(event) {
     }
     return firstLoad = true;
   });
-  $(window).on('popstate', function() {
+  return $(window).on('popstate', function() {
     var newPage, newPageArray;
     if (firstLoad) {
 
@@ -96,5 +93,4 @@ jQuery(document).ready(function(event) {
     }
     return firstLoad = true;
   });
-  return new UIMorphingButton(document.querySelector('.morph-button'));
 });

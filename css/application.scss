@@ -8,6 +8,7 @@
 @import 'layout';
 @import 'social';
 @import 'work';
+@import 'resume';
 // @import 'morph'; // responsive grid and media querie
 
 // ==========================================================================
@@ -27,7 +28,7 @@ body {
 	background: $color-1;
 	padding: 0;
 	font: {
-		size: 1.6rem;
+		size: 1.4rem;
 		family: $primary-font; // variables inside partials > _variables.scss
 	}
 	color: $color-3;
@@ -35,18 +36,21 @@ body {
 }
 
 a {
-	color: $color-2;
+	color: $color-3;
+	outline: none;
 	text-decoration: none;
 }
 
-a, button {
+
+
+button {
 	text-decoration: none;
 	outline: none;
 }
 
 h1 {
 	color: $color-3;
-	font-size: 2.2rem;
+	font-size: 2.6rem;
 	margin: 0;
 
 	@include MQ(M) {
@@ -57,10 +61,10 @@ h1 {
 
 h2 {
 	color: $color-3;
-	font-size: 1.2rem;
-	margin: 0 0 2em;
+	font-size: 1.4rem;
+	margin: 0;
 	@include MQ(M) {
-		font-size: 2.4rem;
+		font-size: 2.2rem;
 		font-weight: 300;
 	}
 }
@@ -81,10 +85,11 @@ h3 {
 // ==========================================================================
 
 .cd-btn {
-	display: inline-block;
+	display: block;
+	margin: 0 auto 2em;
 	padding: 1.4em 1.6em;
-	margin-right: 1em;
-	margin-bottom: 2em;
+	width: 90%;
+	max-width: 320px;
 	// border-radius: 50em;
 	background-color: transparent;
 	color: $color-3;
@@ -93,7 +98,11 @@ h3 {
 	font-size: 1.3rem;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-
+	@include MQ(M) {
+		display: inline-block;
+		margin-right: 1em;
+		width: auto;
+	}
 	.no-touch &:hover {
 		background-color: $color-3;
 		border: 1px solid $color-3;
@@ -110,9 +119,14 @@ h3 {
 // ★ NAVIGATION
 // ==========================================================================
 #header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
 	nav {
 		background: $color-3;
-		padding: 1em;
+		padding: 1.25em 1em;
 		overflow: hidden;
 		.left {
 			float: left;
@@ -121,6 +135,7 @@ h3 {
 			float: right;
 		}
 		a {
+			font-size: 1.6rem;
 			margin-right: .5em;
 			color: $color-2;
 			&.active {
@@ -132,7 +147,7 @@ h3 {
 					position: absolute;
 					left: 0;
 					right: 0;
-					bottom: -16px;
+					bottom: -17px;
 					height: 4px;
 					width: 100%;
 					background: #005273;
@@ -183,17 +198,22 @@ body {
 main {
 	height: 100vh;
 	padding: 0;
-	text-align: center;
+	text-align: left;
+	overflow: hidden;
 
 	.cd-main-content {
 		position: relative;
-		height: 100vh;
+		height: 100%;
 
 		> div {
 			height: 100%;
 			overflow: hidden;
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
+		}
+
+		a {
+			text-decoration: underline;
 		}
 
 		&::after, &::before {
@@ -219,6 +239,13 @@ main {
 			/* vertically center its content */
 			display: table;
 			width: 100%;
+			text-align: center;
+			h2 {
+				margin-bottom: 2em;
+			}
+			a {
+				text-decoration: none;
+			}
 
 			> div {
 				/* vertically center the content inside the .cd-index */
@@ -227,46 +254,89 @@ main {
 			}
 
 		}
+		&.cd-about,
+		&.cd-contact {
+			overflow-y: auto;
+			img {
+				padding-top: 54px;
+				display: block;
+				width: 100%;
+			}
+			> div {
+				width: 90%;
+				margin: 0 auto;
+				h1 {
+					margin: 1em 0;
+					@include MQ(M) {
+						max-width: 100%;
+					}
+				}
+				p {
+					margin: 1em 0;
+					@include MQ(M) {
+						max-width: 100%;
+					}
+				}
+			}
+		}
 
 		&.cd-work,
+		&.cd-contact,
 		&.cd-about {
 			/* .cd-main-content basic style - about page */
 			background-color: $color-2;
 
+		}
+		&.cd-work,
+		&.cd-contact {
 			> div {
-				padding-top: 50px;
+				padding-top: 54px;
 			}
-
 		}
 	}
 
 	p {
-		width: 90%;
+		width: 100%;
 		max-width: $M;
-		margin: 3em auto;
+		margin: 1em 0;
 		font-size: 1.4rem;
-		line-height: 1.6;
+		line-height: 1.25;
 		color: $color-3;
 		text-align: left;
 	}
 
+	ul {
+		margin-top: .5em;
+		padding: 0;
+	}
+	li {
+		list-style-type: none;
+		padding-left: 10px;
+		position: relative;
+		&:before {
+			content: "-";
+    	position: absolute;
+    	left: 0;
+		}
+	}
+
 	@include MQ(M) {
 
-		.cd-main-content {
-			height: 100vh;
-		}
+		// .cd-main-content {
+		// 	height: 100vh;
+		// }
+
+		// &.cd-index > div {
+		// 	padding-top: 200px;
+		// }
 
 		&.cd-index > div {
-			padding-top: 200px;
-		}
-
-		&.cd-index > div {
-			padding-top: 50px;
+			// padding-top: 50px;
 		}
 
 		p {
 			font-size: 1.8rem;
-			line-height: 2;
+			line-height: 1.25;
 		}
 	}
 }
@@ -282,6 +352,7 @@ main {
 	background-color: $color-1;
 	@include transition(opacity 0.4s 0.4s, visibility 0s 0.8s);
 
+	.cd-work & ,
 	.cd-about & {
 		background-color: $color-2;
 	}
