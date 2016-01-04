@@ -3,22 +3,29 @@
 // ==========================================================================
 main .cd-main-content.cd-resume {
   overflow-y: auto;
-  background: $color-2;
+  background: $color-3;
+  h1,
   h2,
   h3,
   h4 {
     font-weight: 500;
+    color: $color-2;
   }
+
   p {
     margin: 0;
     font-size: 1.4rem;
+    color: $color-2;
+  }
+  li {
+    color: $color-2;
   }
   >div {
     header {
       width: 90%;
-      margin: 0 auto;
+      margin: 0 auto 2em;
       padding: 85px 0 20px;
-      border-bottom: 1px solid #fff;
+      border-bottom: 1px solid $color-2l;
       h1,
       h1 {
         margin: 0;
@@ -31,7 +38,7 @@ main .cd-main-content.cd-resume {
     margin: 0 auto;
     margin-bottom: 1em;
     padding-bottom: 1em;
-    border-bottom: 1px solid $color-3;
+    border-bottom: 1px solid $color-2l;
     @include MQ(M) {
       margin-bottom: 2em;
       padding-bottom: 2em;
@@ -44,7 +51,7 @@ main .cd-main-content.cd-resume {
     h2 {
       font-style: italic;
       font-weight: 500;
-      font-size: 1.8rem;
+      font-size: 2.4rem;
     }
     @include MQ(M) {
       @include flex(25%);
@@ -85,5 +92,8 @@ main .cd-main-content.cd-resume {
     border-bottom: 0;
     font-size: 1em;
     text-align: center;
+    a {
+      color: $color-2;
+    }
   }
 }

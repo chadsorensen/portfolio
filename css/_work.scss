@@ -32,7 +32,7 @@
     position: relative;
     overflow: hidden;
     margin: 0;
-    background: $color-2;
+    background: $color-3;
     text-align: center;
     cursor: pointer;
     img {
@@ -96,6 +96,7 @@
 .item figure h2,
 .item figure p {
   margin: 0;
+  color: $color-3;
 }
 
 .item figure p {

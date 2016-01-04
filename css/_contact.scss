@@ -6,16 +6,30 @@ main .cd-main-content.cd-contact {
   h2 {
     font-weight: 500;
   }
+  li:before {
+    content: '';
+    display: none;
+  }
+  a {
+    @include display(flex);
+    @include align-items(center);
+    text-decoration: none;
+    @include transition(opacity .3s);
+    &:hover {
+      opacity: .7;
+    }
+  }
   .social {
     svg {
       display: inline-block;
       @include size(50px);
       path {
-        fill: #fff;
+        fill: $color-2;
       }
     }
     span {
       display: inline-block;
+      margin-left: 1em;
       font-size: 2rem;
     }
   }
