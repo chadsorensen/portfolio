@@ -11,8 +11,6 @@ main .cd-main-content.cd-contact {
     display: none;
   }
   a {
-    @include display(flex);
-    @include align-items(center);
     text-decoration: none;
     @include transition(opacity .3s);
     &:hover {
@@ -21,15 +19,15 @@ main .cd-main-content.cd-contact {
   }
   .social {
     svg {
-      display: inline-block;
+      display: block;
       @include size(50px);
       path {
         fill: $color-2;
       }
     }
     span {
-      display: inline-block;
-      margin-left: 1em;
+      display: block;
+      margin: 1em;
       font-size: 2rem;
     }
   }

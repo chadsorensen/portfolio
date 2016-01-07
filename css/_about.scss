@@ -1,14 +1,126 @@
 // ==========================================================================
 // ★ ABOUT
 // ==========================================================================
-main .cd-main-content.cd-about {
-  >div {
-    width: 90vw;
+#work,
+#contact,
+#about{
+  background: $color-2;
+  overflow: hidden;
+  color: $color-4;
+  .ribbon {
+    font-size: 3.5rem;
+    padding: 2em;
+    text-align: center;
+    background: $color-3;
+    color: $color-4;
+    text-transform: uppercase;
+    a {
+      color: $color-4;
+    }
   }
-  .col-6 {
-    width: 50%;
-    float: left;
-    padding: 20px;
-    padding-left: 0;
+  .social {
+    a {
+      color: $color-3;
+    }
+    svg {
+      path {
+        fill: $color-3;
+      }
+    }
+  }
+}
+#about {
+  ul {
+    @include display(flex);
+    @include justify-content(space-between);
+    flex-wrap: wrap;
+  }
+  li {
+    list-style-type: none;
+    position: relative;
+    background: $color-1;
+    color: $color-4;
+    list-style-type: none;
+    line-height: 2.25;
+    position: relative;
+    background: $color-3;
+    color: $color-2;
+    margin: 1.5em .5em;
+    width: 45%;
+    text-indent: .5em;
+    display: block;
+    &:before {
+      content: attr(data-skill);
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: $color-3;
+      bottom: 0;
+      transition: transform .35s, opacity .5s;
+      opacity: 0;
+      overflow: hidden;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      background: $color-1;
+      color: $color-3;
+      bottom: 0;
+      transition: all .5s;
+      overflow: hidden;
+      @include transition(all .5s);
+    }
+    &.active,
+    &:hover {
+      &:after {
+        width: 85%;
+      }
+      &:before {
+        opacity: 1;
+        @include transform(translateY(-100%));
+      }
+    }
+  }
+}
+#contact {
+  background: $color-1;
+  ul {
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding: 2em 0;
+    max-width: 650px;
+    margin: 0 auto;
+    li {
+      list-style-type: none;
+      span {
+        margin: 0;
+      }
+      svg {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.inner-wrap {
+  max-width: 860px;
+  width: 90%;
+  margin: 0 auto;
+  // TODO
+  // Move these to global
+  ul,li,h2,h3 {
+    color: $color-4;
+  }
+  h2 {
+    font-size: 2.5rem;
+    padding: 2em;
+    text-align: center;
+    color: $color-4;
   }
 }

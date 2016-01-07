@@ -8,6 +8,7 @@
 @import 'layout';
 @import 'social';
 @import 'work';
+@import 'about';
 @import 'contact';
 @import 'resume';
 // @import 'morph'; // responsive grid and media querie
@@ -197,20 +198,15 @@ body {
 }
 
 main {
-	height: 100vh;
 	padding: 0;
 	text-align: left;
-	overflow: hidden;
 
 	.cd-main-content {
 		position: relative;
 		height: 100%;
 
 		> div {
-			height: 100%;
-			overflow: hidden;
-			overflow-y: auto;
-			-webkit-overflow-scrolling: touch;
+
 		}
 
 		a {
@@ -238,8 +234,11 @@ main {
 			/* .cd-main-content basic style - index page */
 			background-color: $color-1;
 			/* vertically center its content */
-			display: table;
-			width: 100%;
+			width: 100vw;
+			height: 100vh;
+			@include display(flex);
+			@include justify-content(center);
+			@include align-items(center);
 			text-align: center;
 			h1,
 			h2 {
@@ -263,7 +262,6 @@ main {
 		&.cd-contact {
 			overflow-y: auto;
 			img {
-				padding-top: 54px;
 				display: block;
 				width: 100%;
 			}
@@ -296,7 +294,6 @@ main {
 		&.cd-work,
 		&.cd-contact {
 			> div {
-				padding-top: 54px;
 			}
 		}
 	}
@@ -314,17 +311,6 @@ main {
 	ul {
 		margin-top: .5em;
 		padding: 0;
-	}
-	li {
-		list-style-type: none;
-		padding-left: 10px;
-		position: relative;
-		color: $color-2;
-		&:before {
-			content: "-";
-    	position: absolute;
-    	left: 0;
-		}
 	}
 
 	@include MQ(M) {
