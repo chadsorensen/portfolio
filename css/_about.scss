@@ -29,6 +29,11 @@
     }
   }
 }
+#work {
+  figure {
+    backface-visibility: hidden;
+  }
+}
 #about {
   ul {
     @include display(flex);
