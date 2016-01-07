@@ -126,7 +126,7 @@ h3 {
 	right: 0;
 	z-index: 1000;
 	nav {
-		background: $color-2;
+		background: $color-3;
 		padding: 1.25em 1em;
 		overflow: hidden;
 		.left {
@@ -138,7 +138,7 @@ h3 {
 		a {
 			font-size: 1.6rem;
 			margin-right: .5em;
-			color: $color-3;
+			color: $color-1;
 			&.active {
 				@include transition(all .3s);
 				position: relative;
@@ -148,10 +148,10 @@ h3 {
 					position: absolute;
 					left: 0;
 					right: 0;
-					bottom: -17px;
+					bottom: -18px;
 					height: 4px;
 					width: 100%;
-					background: $color-3;
+					background: $color-1;
 				}
 			}
 		}
