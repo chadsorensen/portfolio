@@ -8,6 +8,7 @@
 @import 'layout';
 @import 'social';
 @import 'work';
+@import 'about';
 @import 'contact';
 @import 'resume';
 // @import 'morph'; // responsive grid and media querie
@@ -37,7 +38,7 @@ body {
 }
 
 a {
-	color: $color-2;
+	color: $color-1;
 	outline: none;
 	text-decoration: none;
 }
@@ -50,7 +51,7 @@ button {
 }
 
 h1 {
-	color: $color-2;
+	color: $color-4;
 	font-size: 2.6rem;
 	margin: 0;
 
@@ -61,7 +62,7 @@ h1 {
 }
 
 h2 {
-	color: $color-2;
+	color: $color-4;
 	font-size: 1.4rem;
 	margin: 0;
 	@include MQ(M) {
@@ -71,7 +72,7 @@ h2 {
 }
 
 h3 {
-	color: $color-2;
+	color: $color-4;
 	margin: 0 0 2em;
 	font-size: 1rem;
 
@@ -213,10 +214,6 @@ main {
 			-webkit-overflow-scrolling: touch;
 		}
 
-		a {
-			text-decoration: underline;
-		}
-
 		&::after, &::before {
 			/* these are the 2 gradient overlay at the top and bottom of the .cd-main-content - to indicate that you can scroll */
 			content: '';
@@ -243,7 +240,7 @@ main {
 			text-align: center;
 			h1,
 			h2 {
-				color: $color-3;
+				color: $color-4;
 			}
 			h2 {
 				margin-bottom: 2em;
@@ -307,7 +304,7 @@ main {
 		margin: 1em 0;
 		font-size: 1.4rem;
 		line-height: 1.25;
-		color: $color-2;
+		color: $color-4;
 		text-align: left;
 	}
 
@@ -319,7 +316,7 @@ main {
 		list-style-type: none;
 		padding-left: 10px;
 		position: relative;
-		color: $color-2;
+		color: $color-4;
 		&:before {
 			content: "-";
     	position: absolute;

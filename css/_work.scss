@@ -35,6 +35,7 @@
     background: $color-3;
     text-align: center;
     cursor: pointer;
+    backface-visibility: hidden;
     img {
       position: relative;
       display: block;
