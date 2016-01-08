@@ -230,34 +230,7 @@ main {
 			bottom: 0;
 		}
 
-		&.cd-index {
-			/* .cd-main-content basic style - index page */
-			background-color: $color-1;
-			/* vertically center its content */
-			width: 100vw;
-			height: 100vh;
-			@include display(flex);
-			@include justify-content(center);
-			@include align-items(center);
-			text-align: center;
-			h1,
-			h2 {
-				color: $color-3;
-			}
-			h2 {
-				margin-bottom: 2em;
-			}
-			a {
-				text-decoration: none;
-			}
 
-			> div {
-				/* vertically center the content inside the .cd-index */
-				display: table-cell;
-				vertical-align: middle;
-			}
-
-		}
 		&.cd-about,
 		&.cd-contact {
 			overflow-y: auto;

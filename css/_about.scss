@@ -1,12 +1,15 @@
+
 // ==========================================================================
-// ★ ABOUT
+// ★ GLOBAL
 // ==========================================================================
 #work,
 #contact,
 #about{
+  position: relative;
   background: $color-2;
   overflow: hidden;
   color: $color-4;
+  z-index: 1;
   .ribbon {
     font-size: 3.5rem;
     padding: 2em;
@@ -29,11 +32,60 @@
     }
   }
 }
+
+
+// ==========================================================================
+// ★ HELLO
+// ==========================================================================
+#hello {
+  /* .cd-main-content basic style - index page */
+  background-color: $color-1;
+  /* vertically center its content */
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+  h1,
+  h2 {
+    color: $color-3;
+  }
+  h2 {
+    margin-bottom: 2em;
+  }
+  a {
+    text-decoration: none;
+  }
+
+  .scroll-hide-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    text-align: center;
+  }
+  .scroll-hide-container {
+  }
+}
+
+
+// ==========================================================================
+// ★ WORK
+// ==========================================================================
 #work {
+  background: #fff;
   figure {
     backface-visibility: hidden;
   }
 }
+
+// ==========================================================================
+// ★ ABOUT
+// ==========================================================================
 #about {
   ul {
     @include display(flex);
@@ -41,57 +93,45 @@
     flex-wrap: wrap;
   }
   li {
-    list-style-type: none;
-    position: relative;
-    background: $color-1;
-    color: $color-4;
-    list-style-type: none;
-    line-height: 2.25;
-    position: relative;
-    background: $color-3;
-    color: $color-2;
-    margin: 1.5em .5em;
-    width: 45%;
-    text-indent: .5em;
     display: block;
-    &:before {
-      content: attr(data-skill);
-      position: absolute;
+    position: relative;
+    width: 45%;
+    margin: 1.5em .5em;
+    padding-bottom: 1em;
+    color: $color-3;
+    list-style-type: none;
+    line-height: 1.25;
+    font-size: 1.25em;
+    text-align: center;
+    .animate-bar {
       display: block;
-      top: 0;
-      left: 0;
       width: 100%;
-      color: $color-3;
-      bottom: 0;
-      transition: transform .35s, opacity .5s;
-      opacity: 0;
-      overflow: hidden;
-    }
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      background: $color-1;
-      color: $color-3;
-      bottom: 0;
-      transition: all .5s;
-      overflow: hidden;
-      @include transition(all .5s);
-    }
-    &.active,
-    &:hover {
-      &:after {
-        width: 85%;
-      }
+      position: relative;
+      padding: .5em 0 .75em;
       &:before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 4px;
+        background: $color-3;
         opacity: 1;
-        @include transform(translateY(-100%));
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        background: $color-1;
+        left: 0;
+        height: 4px;
+        opacity: 1;
       }
     }
   }
 }
+
+// ==========================================================================
+// ★ CONTACT
+// ==========================================================================
 #contact {
   background: $color-1;
   ul {
@@ -113,6 +153,10 @@
   }
 }
 
+
+// ==========================================================================
+// ★ LAYOUT/GLOBAL
+// ==========================================================================
 .inner-wrap {
   max-width: 860px;
   width: 90%;
@@ -127,5 +171,202 @@
     padding: 2em;
     text-align: center;
     color: $color-4;
+  }
+}
+
+
+
+
+
+// ==========================================================================
+// ★ ANIMATIONS
+// ==========================================================================
+.animate-left {
+  @include transform(translateX(-5%));
+  opacity: 0;
+  @include transition(transform .7s ease .5s);
+  transition-property: transform, opacity;
+}
+.animate-right {
+  @include transform(translateX(5%));
+  opacity: 0;
+  @include transition(transform .7s ease .8s);
+  transition-property: transform, opacity;
+}
+.animate-up {
+  @include transform(translateY(15%));
+  opacity: 0;
+  @include transition(all .7s ease 1s);
+  transition-property: transform, opacity;
+}
+.animate-up2 {
+  @include transform(translateY(15%));
+  opacity: 0;
+  @include transition(transform .7s ease 1.3s);
+  transition-property: transform, opacity;
+}
+.animate-up3 {
+  @include transform(translateY(15%));
+  opacity: 0;
+  @include transition(transform .7s ease 1.5s);
+  transition-property: transform, opacity;
+}
+.animate-up4 {
+  @include transform(translateY(15%));
+  @include transition(transform .7s ease);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+.animate-up5 {
+  @include transform(translateY(15%));
+  @include transition(transform .7s ease .1s);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+.animate-up6 {
+  @include transform(translateY(15%));
+  @include transition(transform .7s ease .2s);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+.animate-up7 {
+  @include transform(translateY(15%));
+  @include transition(transform .7s ease);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+.animate-up8 {
+  @include transform(translateY(15%));
+  @include transition(transform .7s ease .2s);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+.animate-up9 {
+  @include transform(translateY(15%));
+  @include transition(transform .7s ease .4s);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+.animate-up10 {
+  @include transform(translateY(15%));
+  @include transition(transform .7s ease .6s);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+.animate-skill {
+  .animate-up {
+    display: block;
+    @include transform(translateY(15%));
+    @include transition(transform .7s ease);
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+  .animate-down {
+    display: block;
+    @include transform(translateY(-15%));
+    @include transition(transform .7s ease);
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+  .animate-bar:after {
+    width: 0;
+    @include transition(all .7s ease);
+  }
+}
+
+.animate-skill2 {
+  .animate-up {
+    display: block;
+    @include transform(translateY(15%));
+    @include transition(all .7s ease .5s);
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+  .animate-down {
+    display: block;
+    @include transform(translateY(-15%));
+    @include transition(all .7s ease .5s);
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+  .animate-bar:after {
+    @include transition(all .7s ease .5s);
+    width: 0;
+  }
+}
+
+.animate-skill3 {
+  .animate-up {
+    display: block;
+    @include transform(translateY(15%));
+    @include transition(all .7s ease 1.2s);
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+  .animate-down {
+    display: block;
+    @include transform(translateY(-15%));
+    @include transition(all .7s ease 1.2s);
+    opacity: 0;
+    transition-property: transform, opacity;
+  }
+  .animate-bar:after {
+    @include transition(all .7s ease 1.2s);
+    width: 0;
+  }
+}
+
+.active {
+  .animate-left {
+    @include transform(translateX(0%));
+    opacity: 1;
+  }
+  .animate-right {
+    @include transform(translateX(0%));
+    opacity: 1;
+  }
+  .animate-skill {
+    .animate-down,
+    .animate-up {
+      @include transform(translateY(0%));
+      opacity: 1;
+    }
+    .animate-bar:after {
+      width: 80%;
+    }
+  }
+  .animate-skill2 {
+    .animate-down,
+    .animate-up {
+      @include transform(translateY(0%));
+      opacity: 1;
+    }
+    .animate-bar:after {
+      width: 75%;
+    }
+  }
+  .animate-skill3 {
+    .animate-down,
+    .animate-up {
+      @include transform(translateY(0%));
+      opacity: 1;
+    }
+    .animate-bar:after {
+      width: 50%;
+    }
+  }
+  .animate-up,
+  .animate-up2,
+  .animate-up3,
+  .animate-up4,
+  .animate-up5,
+  .animate-up6,
+  .animate-up7,
+  .animate-up8,
+  .animate-up9,
+  .animate-up10 {
+    @include transform(translateY(0%));
+    opacity: 1;
   }
 }

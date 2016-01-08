@@ -1,9 +1,44 @@
 jQuery(document).ready(function(event) {
-  var $header, $nav, changePage, firstLoad, isAnimating, loadNewContent, newLocation, transitionsSupported;
+  var $header, $hello, $nav, changePage, controller, firstLoad, isAnimating, loadNewContent, newLocation, transitionsSupported;
   isAnimating = false;
   newLocation = '';
   $nav = $('.nav-item');
   $header = $('#header nav');
+  $hello = $('#hello');
+  $hello.addClass('active');
+  controller = new ScrollMagic.Controller;
+  new ScrollMagic.Scene({
+    triggerElement: '#work'
+  }).setClassToggle('#work', 'active').addTo(controller);
+  new ScrollMagic.Scene({
+    triggerElement: '#contact',
+    offset: -50
+  }).setClassToggle('#contact', 'active').addTo(controller);
+  new ScrollMagic.Scene({
+    triggerElement: '#about',
+    offset: -100
+  }).addTo(controller).on('enter', function(e) {
+    return $('#about').addClass('active');
+  });
+  controller.scrollTo(function(newpos) {
+    TweenMax.to(window, 0.75, {
+      scrollTo: {
+        y: newpos
+      }
+    });
+  });
+  $(document).on('click', 'a[href^=\'#\']', function(e) {
+    var id;
+    id = $(this).attr('href');
+    console.log('id', id);
+    if ($(id).length > 0) {
+      e.preventDefault();
+      controller.scrollTo(id);
+      if (window.history && window.history.pushState) {
+        history.pushState('', document.title, id);
+      }
+    }
+  });
   changePage = (function(_this) {
     return function(url, bool, $click) {
       isAnimating = true;
