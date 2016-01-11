@@ -176,7 +176,7 @@
   background: $color-1;
   ul {
     @include display(flex);
-    @include justify-content(space-between);
+    @include justify-content(space-around);
     @include align-items(center);
     padding: 2em 0;
     max-width: 650px;
