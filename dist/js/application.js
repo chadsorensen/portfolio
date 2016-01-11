@@ -1,43 +1,28 @@
-jQuery(document).ready(function(event) {
-  var $header, $hello, controller, isAnimating, newLocation;
-  isAnimating = false;
-  newLocation = '';
-  $header = $('#header nav');
-  $hello = $('#hello');
-  $hello.addClass('active');
-  controller = new ScrollMagic.Controller;
-  new ScrollMagic.Scene({
-    triggerElement: '#work'
-  }).setClassToggle('#work', 'active').addTo(controller);
-  new ScrollMagic.Scene({
-    triggerElement: '#about',
-    offset: -100
-  }).addTo(controller).on('enter', function(e) {
-    return $('#about').addClass('active');
-  });
-  return new ScrollMagic.Scene({
-    triggerElement: '#contact',
-    offset: -100
-  }).addTo(controller).on('enter', function(e) {
-    return $('#contact').addClass('active');
-  });
-});
+var helloNavigation, mobileNavigation, scrollMagic, smoothScroll, verticalNavigation;
 
 jQuery(document).ready(function($) {
-  var checkScroll, contentSections, helloNavigation, navTrigger, navigationItems, scrolling, smoothScroll, updateSections, verticalNavigation;
+  var $contentSections, $header, $hello, $helloNavigation, $navTrigger, $navigationItems, $verticalNavigation, checkScroll, isAnimating, scrolling, updateSections;
   scrolling = false;
-  contentSections = $('section');
-  verticalNavigation = $('.cd-vertical-nav');
-  helloNavigation = $('#hello');
-  navigationItems = verticalNavigation.find('a');
-  navTrigger = $('.cd-nav-trigger');
+  isAnimating = false;
+  $header = $('#header nav');
+  $hello = $('#hello');
+  $contentSections = $('section');
+  $verticalNavigation = $('.cd-vertical-nav');
+  $navigationItems = $verticalNavigation.find('a');
+  $helloNavigation = $('#hello');
+  $navTrigger = $('.cd-nav-trigger');
+  $hello.addClass('active');
+  scrollMagic();
+  helloNavigation($helloNavigation);
+  verticalNavigation($verticalNavigation);
+  mobileNavigation($navTrigger, $verticalNavigation);
   checkScroll = function() {
     if (!scrolling) {
       scrolling = true;
       if (!window.requestAnimationFrame) {
-        setTimeout(updateSections, 300);
+        return setTimeout(updateSections, 300);
       } else {
-        window.requestAnimationFrame(updateSections);
+        return window.requestAnimationFrame(updateSections);
       }
     }
   };
@@ -45,36 +30,67 @@ jQuery(document).ready(function($) {
     var halfWindowHeight, scrollTop;
     halfWindowHeight = $(window).height() / 2;
     scrollTop = $(window).scrollTop();
-    contentSections.each(function() {
-      var navigationItem, section, sectionId;
-      section = $(this);
-      sectionId = section.attr('id');
-      navigationItem = navigationItems.filter('[href^="#' + sectionId + '"]');
-      if (section.offset().top - halfWindowHeight < scrollTop && section.offset().top + section.height() - halfWindowHeight > scrollTop) {
-        return navigationItem.addClass('active');
+    $contentSections.each(function() {
+      var $activeNav, $activeSection, $navigationItem, $section, sectionId;
+      $section = $(this);
+      sectionId = $section.attr('id');
+      $navigationItem = $navigationItems.filter('[href^="#' + sectionId + '"]');
+      if ($section.offset().top - halfWindowHeight < scrollTop && $section.offset().top + $section.height() - halfWindowHeight > scrollTop) {
+        $navigationItem.addClass('active');
       } else {
-        return navigationItem.removeClass('active');
+        $navigationItem.removeClass('active');
+      }
+      if ($(window).scrollTop() + $(window).height() > $(document).height() - 50) {
+        $navigationItem.removeClass('active');
+        $activeSection = $('#contact');
+        $activeNav = $navigationItems.filter('[href^="#contact"]');
+        $activeNav.addClass('active');
+        return $activeSection.addClass('active');
       }
     });
     return scrolling = false;
   };
-  smoothScroll = function(target) {
-    $('body,html').animate({
-      'scrollTop': target.offset().top
-    }, 500);
-  };
-  $(window).on('scroll', checkScroll);
-  helloNavigation.on('click', 'a', function(event) {
+  return $(window).on('scroll', checkScroll);
+});
+
+smoothScroll = function(target) {
+  return $('body,html').animate({
+    'scrollTop': target.offset().top
+  }, 500);
+};
+
+scrollMagic = function() {
+  var controller;
+  controller = new ScrollMagic.Controller;
+  new ScrollMagic.Scene({
+    triggerElement: '#work'
+  }).setClassToggle('#work', 'active').addTo(controller);
+  return new ScrollMagic.Scene({
+    triggerElement: '#about',
+    offset: -100
+  }).addTo(controller).on('enter', function(e) {
+    return $('#about').addClass('active');
+  });
+};
+
+helloNavigation = function($helloNavigation) {
+  return $helloNavigation.on('click', 'a', function(event) {
     event.preventDefault();
     return smoothScroll($(this.hash));
   });
-  verticalNavigation.on('click', 'a', function(event) {
+};
+
+verticalNavigation = function($verticalNavigation) {
+  return $verticalNavigation.on('click', 'a', function(event) {
     event.preventDefault();
     smoothScroll($(this.hash));
-    return verticalNavigation.removeClass('open');
+    return $verticalNavigation.removeClass('open');
   });
-  return navTrigger.on('click', function(event) {
+};
+
+mobileNavigation = function($navTrigger, $verticalNavigation) {
+  return $navTrigger.on('click', function(event) {
     event.preventDefault();
-    return verticalNavigation.toggleClass('open');
+    return $verticalNavigation.toggleClass('open');
   });
-});
+};

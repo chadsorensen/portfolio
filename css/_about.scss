@@ -243,6 +243,14 @@
   @include transition(transform .7s ease .8s);
   transition-property: transform, opacity;
 }
+
+.animate-up-about {
+  @include transform(translateY(5%));
+  opacity: 0;
+  @include transition(all .7s ease);
+  transition-property: transform, opacity;
+}
+
 .animate-up {
   @include transform(translateY(15%));
   opacity: 0;
@@ -406,6 +414,7 @@
       width: 50%;
     }
   }
+  .animate-up-about,
   .animate-up,
   .animate-up2,
   .animate-up3,
