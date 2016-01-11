@@ -1,0 +1,16 @@
+// ==========================================================================
+// ★ HELPERS
+// ==========================================================================
+.hide {
+  @include transform(translateY(-100%));
+  @include transition(all .3s);
+}
+
+.cd-image-replace {
+  /* replace text with image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  color: transparent;
+}

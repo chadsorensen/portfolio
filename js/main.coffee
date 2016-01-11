@@ -1,84 +1,64 @@
 jQuery(document).ready (event) ->
   isAnimating = false
   newLocation = ''
-  $nav = $('.nav-item')
+
   $header = $('#header nav')
-  changePage = (url, bool, $click) =>
-    isAnimating = true
-    # trigger page animation
-    $('body').addClass 'page-is-changing'
-    $('.cd-loading-bar').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
-      loadNewContent url, bool, $click
-      newLocation = url
-      $('.cd-loading-bar').off 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'
+  $hello = $('#hello')
 
-    #if browser doesn't support CSS transitions
-    if !transitionsSupported()
-      loadNewContent url, bool, $click
-      newLocation = url
+  $hello.addClass 'active'
 
-  loadNewContent = (url, bool, $click) =>
-    url = if '' == url then 'index' else url
-    newSection = 'cd-' + url.replace('.html', '')
-    section = $('<div class="cd-main-content ' + newSection + '"></div>')
-    section.load url + ' .cd-main-content > *', (event) =>
-      # load new content and replace <main> content with the new one
-      $('main').html section
-      #if browser doesn't support CSS transitions - dont wait for the end of transitions
-      delay = if transitionsSupported() then 1200 else 0
-      setTimeout (=>
-        #wait for the end of the transition on the loading bar before revealing the new content
-        if section.hasClass('cd-template') then $('body').addClass('cd-template') else $('body').removeClass('cd-template')
-        $nav.removeClass 'active'
-        $active = $(".nav-item[href='#{url}']")
-        $active.addClass 'active'
-        if $click.hasClass 'index'
-          $header.addClass 'hide'
-        else
-          $header.removeClass 'hide'
-        $('body').removeClass 'page-is-changing'
-        $('.cd-loading-bar').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
-          isAnimating = false
-          $('.cd-loading-bar').off 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'
+  controller = new (ScrollMagic.Controller)
+  new (ScrollMagic.Scene)(triggerElement: '#work').setClassToggle('#work', 'active').addTo controller
 
-        if !transitionsSupported()
-          isAnimating = false
+  new (ScrollMagic.Scene)(triggerElement: '#about', offset: -100).addTo(controller).on('enter', (e) ->
+    $('#about').addClass 'active'
+  )
+  new (ScrollMagic.Scene)(triggerElement: '#contact', offset: -100).addTo(controller).on('enter', (e) ->
+    $('#contact').addClass 'active'
+  )
 
-      ), delay
-      if url != window.location and bool
-        #add the new page to the window.history
-        #if the new page was triggered by a 'popstate' event, don't add it
-        window.history.pushState { path: url }, '', url
 
-  transitionsSupported = ->
-    $('html').hasClass 'csstransitions'
 
-  firstLoad = false
-  #trigger smooth transition from the actual page to the new one
-  $('body').on 'click', '[data-type="page-transition"]', (event) ->
+
+jQuery(document).ready ($) ->
+  scrolling = false
+  contentSections = $('section')
+  verticalNavigation = $('.cd-vertical-nav')
+  helloNavigation = $('#hello')
+  navigationItems = verticalNavigation.find('a')
+  navTrigger = $('.cd-nav-trigger')
+
+  checkScroll = ->
+    if !scrolling
+      scrolling = true
+      if !window.requestAnimationFrame then setTimeout(updateSections, 300) else window.requestAnimationFrame(updateSections)
+    return
+
+  updateSections = ->
+    halfWindowHeight = $(window).height() / 2
+    scrollTop = $(window).scrollTop()
+    contentSections.each ->
+      section = $(this)
+      sectionId = section.attr('id')
+      navigationItem = navigationItems.filter('[href^="#' + sectionId + '"]')
+      if section.offset().top - halfWindowHeight < scrollTop and section.offset().top + section.height() - halfWindowHeight > scrollTop then navigationItem.addClass('active') else navigationItem.removeClass('active')
+    scrolling = false
+
+  smoothScroll = (target) ->
+    $('body,html').animate { 'scrollTop': target.offset().top }, 500
+    return
+
+  $(window).on 'scroll', checkScroll
+  #smooth scroll to the selected section
+  helloNavigation.on 'click', 'a', (event) ->
     event.preventDefault()
-    #detect which page has been selected
-    $click = $(event.currentTarget)
+    smoothScroll $(@hash)
+  verticalNavigation.on 'click', 'a', (event) ->
+    event.preventDefault()
+    smoothScroll $(@hash)
+    verticalNavigation.removeClass 'open'
 
-    unless $click.hasClass 'active'
-      newPage = $(this).attr('href')
-
-      #if the page is not already being animated - trigger animation
-      if !isAnimating
-        changePage newPage, true, $click
-    firstLoad = true
-
-  #detect the 'popstate' event - e.g. user clicking the back button
-  $(window).on 'popstate', ->
-    if firstLoad
-
-      ###
-      Safari emits a popstate event on page load - check if firstLoad is true before animating
-      if it's false - the page has just been loaded
-      ###
-
-      newPageArray = location.pathname.split('/')
-      newPage = newPageArray[newPageArray.length - 1]
-      if !isAnimating and newLocation != newPage
-        changePage newPage, false, $('.index')
-    firstLoad = true
+  # open navigation if user clicks the .cd-nav-trigger - small devices only
+  navTrigger.on 'click', (event) ->
+    event.preventDefault()
+    verticalNavigation.toggleClass 'open'
