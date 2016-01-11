@@ -5,7 +5,9 @@
 @import '../bourbon/bourbon';
 @import 'variables'; // colors, fonts etc...
 @import 'mixins'; // custom mixins
+@import 'helpers'; // custom mixins
 @import 'layout';
+@import 'navigation';
 @import 'social';
 @import 'work';
 @import 'about';
@@ -52,12 +54,11 @@ button {
 
 h1 {
 	color: $color-2;
-	font-size: 2.6rem;
+	font-size: 3.6rem;
 	margin: 0;
-
+	font-weight: 300;
 	@include MQ(M) {
 		font-size: 4.4rem;
-		font-weight: 300;
 	}
 }
 
@@ -65,9 +66,9 @@ h2 {
 	color: $color-2;
 	font-size: 1.4rem;
 	margin: 0;
+	font-weight: 300;
 	@include MQ(M) {
 		font-size: 2.2rem;
-		font-weight: 300;
 	}
 }
 
@@ -76,9 +77,9 @@ h3 {
 	margin: 0 0 2em;
 	font-size: 1rem;
 
+	font-weight: 300;
 	@include MQ(M) {
 		font-size: 2rem;
-		font-weight: 300;
 	}
 }
 
@@ -161,42 +162,6 @@ h3 {
 // ==========================================================================
 // ★ MAIN
 // ==========================================================================
-
-body {
-
-	&::after, &::before {
-		/* these are the 2 half blocks which cover the content once the animation is triggered */
-		content: '';
-		height: 50vh;
-		width: 100%;
-		position: fixed;
-		left: 0;
-		background-color: $color-3;
-		z-index: 1;
-
-		/* Force Hardware Acceleration */
-		@include backface-visibility(hidden);
-		@include transform(translateZ(0));
-
-		@include transition(transform 0.4s 0.4s);
-	}
-
-	&::before {
-		top: 0;
-		@include transform(translateY(-100%));
-	}
-
-	&::after {
-		bottom: 0;
-		@include transform(translateY(100%));
-	}
-
-	&.page-is-changing::after, &.page-is-changing::before {
-		@include transform(translateY(0));
-		@include transition(transform 0.4s 0s);
-	}
-}
-
 main {
 	padding: 0;
 	text-align: left;
@@ -205,69 +170,8 @@ main {
 		position: relative;
 		height: 100%;
 
-		> div {
-
-		}
-
 		a {
-			text-decoration: underline;
-		}
-
-		&::after, &::before {
-			/* these are the 2 gradient overlay at the top and bottom of the .cd-main-content - to indicate that you can scroll */
-			content: '';
-			position: absolute;
-			left: 0;
-			height: 50px;
-			width: 100%;
-		}
-
-		&::before {
-			top: 0;
-		}
-
-		&::after {
-			bottom: 0;
-		}
-
-
-		&.cd-about,
-		&.cd-contact {
-			overflow-y: auto;
-			img {
-				display: block;
-				width: 100%;
-			}
-			> div {
-				width: 90%;
-				margin: 0 auto;
-				overflow-y: hidden;
-				h1 {
-					margin: 1em 0;
-					@include MQ(M) {
-						max-width: 100%;
-					}
-				}
-				p {
-					margin: 1em 0;
-					@include MQ(M) {
-						max-width: 100%;
-					}
-				}
-			}
-		}
-
-		&.cd-work,
-		&.cd-contact,
-		&.cd-about {
-			/* .cd-main-content basic style - about page */
-			background-color: $color-3;
-
-		}
-		&.cd-work,
-		&.cd-contact {
-			> div {
-			}
+			text-decoration: none;
 		}
 	}
 
@@ -315,6 +219,7 @@ main {
 	width: calc(100%);
 	opacity: 0;
 	visibility: hidden;
+	z-index: 999;
 	background-color: $color-1;
 	@include transition(opacity 0.4s 0.4s, visibility 0s 0.8s);
 
@@ -338,7 +243,7 @@ main {
 .cd-loading-bar {
 	/* this is the loding bar - visible while switching from one page to the following one */
 	position: fixed;
-	z-index: 2;
+	z-index: 1001;
 	left: 50%;
     top: 50%;
 	height: 2px;
@@ -403,10 +308,4 @@ main {
 	p {
 		color: $color-2;
 	}
-}
-
-//Helpers
-.hide {
-	@include transform(translateY(-100%));
-	@include transition(all .3s);
 }

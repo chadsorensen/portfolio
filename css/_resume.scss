@@ -9,23 +9,29 @@ main .cd-main-content.cd-resume {
   h3,
   h4 {
     font-weight: 500;
-    color: $color-2;
+    color: $color-4;
   }
 
   p {
-    margin: 0;
+    margin: 0 0 1em;
     font-size: 1.4rem;
-    color: $color-2;
+    color: $color-4;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .italic {
+    font-style: italic;
   }
   li {
-    color: $color-2;
+    color: $color-4;
   }
   >div {
     header {
       width: 90%;
       margin: 0 auto 2em;
       padding: 85px 0 20px;
-      border-bottom: 1px solid $color-2l;
+      border-bottom: 1px solid rgba($color-4, .35);
       h1,
       h1 {
         margin: 0;
@@ -38,7 +44,7 @@ main .cd-main-content.cd-resume {
     margin: 0 auto;
     margin-bottom: 1em;
     padding-bottom: 1em;
-    border-bottom: 1px solid $color-2l;
+    border-bottom: 1px solid rgba($color-4, .35);
     @include MQ(M) {
       margin-bottom: 2em;
       padding-bottom: 2em;
@@ -93,7 +99,8 @@ main .cd-main-content.cd-resume {
     font-size: 1em;
     text-align: center;
     a {
-      color: $color-2;
+      color: $color-1;
+      text-transform: none;
     }
   }
 }

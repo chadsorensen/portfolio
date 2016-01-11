@@ -6,7 +6,7 @@
 #contact,
 #about{
   position: relative;
-  background: $color-2;
+  background: $color-1;
   overflow: hidden;
   color: $color-4;
   z-index: 1;
@@ -52,6 +52,10 @@
   }
   h2 {
     margin-bottom: 2em;
+    font-size: 1.6rem;
+    @include MQ(M) {
+      font-size: 2.2rem;
+    }
   }
   a {
     text-decoration: none;
@@ -87,6 +91,42 @@
 // ★ ABOUT
 // ==========================================================================
 #about {
+  .ribbon a {
+    @include transition(color .3s);
+    &:hover {
+      color: $color-1;
+    }
+  }
+  .image-holder {
+    background: #fff;
+    width: 100%;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  .inner-wrap {
+    margin: 4em auto;
+    overflow: hidden;
+  }
+  .col-6 {
+    padding: 0 2em;
+    &:first-child {
+      margin-bottom: 2em;
+      @include MQ(M) {
+        margin-bottom: 0;
+      }
+    }
+  }
+  h3 {
+    margin: 0;
+    font-size: 3rem;
+    color: $color-3;
+  }
+  p {
+    color: $color-3;
+
+  }
   ul {
     @include display(flex);
     @include justify-content(space-between);
@@ -368,5 +408,9 @@
   .animate-up10 {
     @include transform(translateY(0%));
     opacity: 1;
+  }
+  .animate-in {
+   @include transform(translateX(0%));
+   opacity: 1;
   }
 }

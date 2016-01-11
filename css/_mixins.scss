@@ -20,6 +20,12 @@
   }
 }
 
+// border radius
+
+@mixin border-radius($radius:.25em) {
+  border-radius: $radius;
+}
+
 // antialiasing mode font rendering
 
 @mixin font-smoothing {

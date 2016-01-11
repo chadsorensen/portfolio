@@ -1,8 +1,7 @@
 jQuery(document).ready(function(event) {
-  var $header, $hello, $nav, changePage, controller, firstLoad, isAnimating, loadNewContent, newLocation, transitionsSupported;
+  var $header, $hello, controller, isAnimating, newLocation;
   isAnimating = false;
   newLocation = '';
-  $nav = $('.nav-item');
   $header = $('#header nav');
   $hello = $('#hello');
   $hello.addClass('active');
@@ -11,121 +10,71 @@ jQuery(document).ready(function(event) {
     triggerElement: '#work'
   }).setClassToggle('#work', 'active').addTo(controller);
   new ScrollMagic.Scene({
-    triggerElement: '#contact',
-    offset: -50
-  }).setClassToggle('#contact', 'active').addTo(controller);
-  new ScrollMagic.Scene({
     triggerElement: '#about',
     offset: -100
   }).addTo(controller).on('enter', function(e) {
     return $('#about').addClass('active');
   });
-  controller.scrollTo(function(newpos) {
-    TweenMax.to(window, 0.75, {
-      scrollTo: {
-        y: newpos
+  return new ScrollMagic.Scene({
+    triggerElement: '#contact',
+    offset: -100
+  }).addTo(controller).on('enter', function(e) {
+    return $('#contact').addClass('active');
+  });
+});
+
+jQuery(document).ready(function($) {
+  var checkScroll, contentSections, helloNavigation, navTrigger, navigationItems, scrolling, smoothScroll, updateSections, verticalNavigation;
+  scrolling = false;
+  contentSections = $('section');
+  verticalNavigation = $('.cd-vertical-nav');
+  helloNavigation = $('#hello');
+  navigationItems = verticalNavigation.find('a');
+  navTrigger = $('.cd-nav-trigger');
+  checkScroll = function() {
+    if (!scrolling) {
+      scrolling = true;
+      if (!window.requestAnimationFrame) {
+        setTimeout(updateSections, 300);
+      } else {
+        window.requestAnimationFrame(updateSections);
+      }
+    }
+  };
+  updateSections = function() {
+    var halfWindowHeight, scrollTop;
+    halfWindowHeight = $(window).height() / 2;
+    scrollTop = $(window).scrollTop();
+    contentSections.each(function() {
+      var navigationItem, section, sectionId;
+      section = $(this);
+      sectionId = section.attr('id');
+      navigationItem = navigationItems.filter('[href^="#' + sectionId + '"]');
+      if (section.offset().top - halfWindowHeight < scrollTop && section.offset().top + section.height() - halfWindowHeight > scrollTop) {
+        return navigationItem.addClass('active');
+      } else {
+        return navigationItem.removeClass('active');
       }
     });
-  });
-  $(document).on('click', 'a[href^=\'#\']', function(e) {
-    var id;
-    id = $(this).attr('href');
-    console.log('id', id);
-    if ($(id).length > 0) {
-      e.preventDefault();
-      controller.scrollTo(id);
-      if (window.history && window.history.pushState) {
-        history.pushState('', document.title, id);
-      }
-    }
-  });
-  changePage = (function(_this) {
-    return function(url, bool, $click) {
-      isAnimating = true;
-      $('body').addClass('page-is-changing');
-      $('.cd-loading-bar').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
-        loadNewContent(url, bool, $click);
-        newLocation = url;
-        return $('.cd-loading-bar').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
-      });
-      if (!transitionsSupported()) {
-        loadNewContent(url, bool, $click);
-        return newLocation = url;
-      }
-    };
-  })(this);
-  loadNewContent = (function(_this) {
-    return function(url, bool, $click) {
-      var newSection, section;
-      url = '' === url ? 'index' : url;
-      newSection = 'cd-' + url.replace('.html', '');
-      section = $('<div class="cd-main-content ' + newSection + '"></div>');
-      return section.load(url + ' .cd-main-content > *', function(event) {
-        var delay;
-        $('main').html(section);
-        delay = transitionsSupported() ? 1200 : 0;
-        setTimeout((function() {
-          var $active;
-          if (section.hasClass('cd-template')) {
-            $('body').addClass('cd-template');
-          } else {
-            $('body').removeClass('cd-template');
-          }
-          $nav.removeClass('active');
-          $active = $(".nav-item[href='" + url + "']");
-          $active.addClass('active');
-          if ($click.hasClass('index')) {
-            $header.addClass('hide');
-          } else {
-            $header.removeClass('hide');
-          }
-          $('body').removeClass('page-is-changing');
-          $('.cd-loading-bar').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
-            isAnimating = false;
-            return $('.cd-loading-bar').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
-          });
-          if (!transitionsSupported()) {
-            return isAnimating = false;
-          }
-        }), delay);
-        if (url !== window.location && bool) {
-          return window.history.pushState({
-            path: url
-          }, '', url);
-        }
-      });
-    };
-  })(this);
-  transitionsSupported = function() {
-    return $('html').hasClass('csstransitions');
+    return scrolling = false;
   };
-  firstLoad = false;
-  $('body').on('click', '[data-type="page-transition"]', function(event) {
-    var $click, newPage;
+  smoothScroll = function(target) {
+    $('body,html').animate({
+      'scrollTop': target.offset().top
+    }, 500);
+  };
+  $(window).on('scroll', checkScroll);
+  helloNavigation.on('click', 'a', function(event) {
     event.preventDefault();
-    $click = $(event.currentTarget);
-    if (!$click.hasClass('active')) {
-      newPage = $(this).attr('href');
-      if (!isAnimating) {
-        changePage(newPage, true, $click);
-      }
-    }
-    return firstLoad = true;
+    return smoothScroll($(this.hash));
   });
-  return $(window).on('popstate', function() {
-    var newPage, newPageArray;
-    if (firstLoad) {
-
-      /*
-      Safari emits a popstate event on page load - check if firstLoad is true before animating
-      if it's false - the page has just been loaded
-       */
-      newPageArray = location.pathname.split('/');
-      newPage = newPageArray[newPageArray.length - 1];
-      if (!isAnimating && newLocation !== newPage) {
-        changePage(newPage, false, $('.index'));
-      }
-    }
-    return firstLoad = true;
+  verticalNavigation.on('click', 'a', function(event) {
+    event.preventDefault();
+    smoothScroll($(this.hash));
+    return verticalNavigation.removeClass('open');
+  });
+  return navTrigger.on('click', function(event) {
+    event.preventDefault();
+    return verticalNavigation.toggleClass('open');
   });
 });
