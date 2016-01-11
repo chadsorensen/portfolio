@@ -183,16 +183,26 @@
     margin: 0 auto;
     li {
       list-style-type: none;
+      a {
+        text-decoration: none;
+        &:hover {
+          svg,
+          span {
+            opacity: .7;
+          }
+        }
+      }
       span {
         margin: 0;
+        @include transition(opacity .3s);
       }
       svg {
         margin: 0 auto;
+        @include transition(opacity .3s);
       }
     }
   }
 }
-
 
 // ==========================================================================
 // ★ LAYOUT/GLOBAL
@@ -412,35 +422,5 @@
   .animate-in {
    @include transform(translateX(0%));
    opacity: 1;
-  }
-  .social {
-    ul {
-      @include display(flex);
-    }
-    li:before {
-      content: '';
-      display: none;
-    }
-    a {
-      @include display(flex);
-      @include align-items(center);
-      text-decoration: none;
-      @include transition(opacity .3s);
-      &:hover {
-        opacity: .7;
-      }
-    }
-    svg {
-      display: inline-block;
-      @include size(25px);
-      path {
-        fill: $color-2;
-      }
-    }
-    span {
-      display: inline-block;
-      margin-right: 1em;
-      font-size: 1.5rem;
-    }
   }
 }
